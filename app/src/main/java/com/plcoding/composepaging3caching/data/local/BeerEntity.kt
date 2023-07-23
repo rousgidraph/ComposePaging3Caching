@@ -11,6 +11,6 @@ data class BeerEntity(
     val tagline :  String,
     val description : String,
     val firstBrewed : String,
-    val imageUrl: String?
+    val imageUrl : String?
 
 )

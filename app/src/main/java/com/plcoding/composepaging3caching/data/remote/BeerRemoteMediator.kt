@@ -8,12 +8,14 @@ import androidx.room.withTransaction
 import com.plcoding.composepaging3caching.data.local.BeerDatabase
 import com.plcoding.composepaging3caching.data.local.BeerEntity
 import com.plcoding.composepaging3caching.data.mappers.toBeerEntity
+import kotlinx.coroutines.delay
 import retrofit2.HttpException
 import java.io.IOException
 
 @OptIn(ExperimentalPagingApi::class)
 class BeerRemoteMediator(
-    private val beerDb: BeerDatabase, private val beerApi: BeerApi
+    private val beerDb: BeerDatabase,
+    private val beerApi: BeerApi
 ) : RemoteMediator<Int, BeerEntity>() {
 
     override suspend fun load(
@@ -32,6 +34,7 @@ class BeerRemoteMediator(
                     }
                 }
             }
+
             val beers = beerApi.getBeers(page = loadKey, pageCount = state.config.pageSize)
 
             beerDb.withTransaction {
